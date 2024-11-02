@@ -1,5 +1,5 @@
-const WEATHER_API_URL = 'api.openweathermap.org/data/2.5/forecast/daily?q={city name}&cnt={cnt}&appid={API key}';
-const API_KEY = '277262994f4120bf73a25b235a6e1b86';
+const WEATHER_API_URL = 'https://api.openweathermap.org/data/2.5/forecast/daily?q={city name}&appid={API key}';
+const API_KEY = '277227180e61331fd563d1dec5a444e44f3b';
 
 
 const cityForm = document.querySelector('#city-form');
@@ -17,11 +17,12 @@ const cityElement = document.querySelector("#city");
 cityForm.addEventListener('submit',async (e)=>{
     e.preventDefault();
     const city = searchInput.value;
+    console.log(city);
     if(!city || city.length===0) return;
 
     const url = getRequestUrl(city);
+    
     initializeState();
-    console.log(url);
 
     const weatherData = await getWeatherData(url);
     if(weatherData) processWeatherData(weatherData);
@@ -33,7 +34,7 @@ function getRequestUrl(location){
     const apiUrl = new URL(WEATHER_API_URL);
     apiUrl.searchParams.append('apikey',API_KEY);
     apiUrl.searchParams.append('location',location);
-    return apiUrl.href;
+    return apiUrl.href
 }
 
 async function getWeatherData(url){
